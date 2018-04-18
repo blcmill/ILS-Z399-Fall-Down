@@ -26,7 +26,7 @@ screen_size = (800,800)
 FPS = 60
 gravity = 1.5
 friction = 0.3
-lives = 5
+lives = 1
 
 
 def main():
@@ -90,8 +90,20 @@ def main():
                         song.play_music()
 
                 keys = pygame.key.get_pressed()
-                if won:
-                    screen.fill(Color.pink_0)
+
+                if player.lives == 0:
+                        screen.fill(Color.black)
+                        font = pygame.font.SysFont("arial", 64)
+                        f = font.render('GAME OVER', True, Color.white)
+                        screen.blit(f, (230, 400))
+                        pygame.display.flip()
+
+                elif won:
+                    screen.fill(Color.green_5)
+                    font = pygame.font.SysFont("arial", 64)
+                    f = font.render('YOU WIN', True, Color.yellow_4)
+                    screen.blit(f, (230, 400))
+                    pygame.display.flip()
 
                 else:
                 # a complete list of the pygame key constants can be found here: https://www.pygame.org/docs/ref/key.html
@@ -123,7 +135,7 @@ def main():
                             level.screen_shake = False
 
                     screen.blit(level.get_screen(),next(offset),level.get_rect(screen_size,player))
-                pygame.display.flip()
+                    pygame.display.flip()
 
 if __name__ == '__main__':
         main()
