@@ -120,6 +120,10 @@ def main():
                     floors.update()
                     enemies.update()
                     players.update(level,enemies,floors)
+                    font = pygame.font.SysFont("arial", 32)
+                    s = 'lives: ' + str(player.lives)
+                    f = font.render(s, True, Color.black)
+
 
                     full_screen = level.get_full_screen()
                     floors.draw(full_screen)
@@ -135,6 +139,7 @@ def main():
                             level.screen_shake = False
 
                     screen.blit(level.get_screen(),next(offset),level.get_rect(screen_size,player))
+                    screen.blit(f, (600, 0))
                     pygame.display.flip()
 
 if __name__ == '__main__':
