@@ -10,6 +10,7 @@ If ball gets past top, eliminate ball player.die()
 '''
 
 import sys, logging, pygame, random, os
+import level_generator
 from Color import Color
 from Sound import Sound
 from Player import Player
@@ -29,6 +30,7 @@ lives = 5
 
 
 def main():
+
         pygame.init()
         won = False
         screen = pygame.display.set_mode(screen_size)
