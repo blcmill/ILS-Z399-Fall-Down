@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import pygame, logging
+import pygame, logging,os
 from Color import Color
 
 logging.basicConfig(format='[%(filename)s:%(lineno)d] %(message)s', level=logging.INFO)
@@ -8,8 +8,7 @@ logging.basicConfig(format='[%(filename)s:%(lineno)d] %(message)s', level=loggin
 class Player(pygame.sprite.Sprite):
 	def __init__(self,position,lives,size,gravity,friction):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.Surface(size)
-		self.image.fill(Color.green_5)
+		self.image = pygame.image.load(os.path.join('.', "blackBall.png")).convert()
 		self.rect = self.image.get_rect()
 		(self.rect.x,self.rect.y) = position
 		self.starting_position = position
