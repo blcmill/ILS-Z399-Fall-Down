@@ -26,7 +26,7 @@ screen_size = (800,800)
 FPS = 60
 gravity = 1.5
 friction = 0.3
-lives = 1
+lives = 5
 
 
 def main():
