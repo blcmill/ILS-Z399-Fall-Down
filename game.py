@@ -30,6 +30,7 @@ lives = 5
 
 def main():
         pygame.init()
+        won = False
         screen = pygame.display.set_mode(screen_size)
         screen_rect = screen.get_rect()
         clock = pygame.time.Clock()
@@ -74,6 +75,7 @@ def main():
                 floors.add(floor)
 
 
+
         while True:
                 clock.tick(FPS)
                 screen.fill(Color.black)
@@ -86,36 +88,39 @@ def main():
                         song.play_music()
 
                 keys = pygame.key.get_pressed()
+                if won:
+                    screen.fill(Color.pink_0)
 
+                else:
                 # a complete list of the pygame key constants can be found here: https://www.pygame.org/docs/ref/key.html
-                if keys[pygame.K_LEFT]:
-                    player.move(-1)
-                elif keys[pygame.K_RIGHT]:
-                    player.move(1)
-                #I removed the player's ability to move left or stop
-                #this adds challenge and an "infinite" element to the game
-                #makes it similar to canabalt in a way
-                if keys[pygame.K_UP]:
-                        player.jump()
+                    if keys[pygame.K_LEFT]:
+                        player.move(-1)
+                    elif keys[pygame.K_RIGHT]:
+                        player.move(1)
+                    #I removed the player's ability to move left or stop
+                    #this adds challenge and an "infinite" element to the game
+                    #makes it similar to canabalt in a way
+                    if keys[pygame.K_UP]:
+                            player.jump()
 
-                floors.update()
-                enemies.update()
-                players.update(level,enemies,floors)
+                    floors.update()
+                    enemies.update()
+                    players.update(level,enemies,floors)
 
-                full_screen = level.get_full_screen()
-                floors.draw(full_screen)
-                enemies.draw(full_screen)
-                players.draw(full_screen)
+                    full_screen = level.get_full_screen()
+                    floors.draw(full_screen)
+                    enemies.draw(full_screen)
+                    players.draw(full_screen)
 
-                for x in enemies:
-                        if player.rect.colliderect(x.rect):
-                                player.die(level)
+                    for x in enemies:
+                            if player.rect.colliderect(x.rect):
+                                    won = True
 
-                if level.screen_shake:
-                        offset = level.shake()
-                        level.screen_shake = False
+                    if level.screen_shake:
+                            offset = level.shake()
+                            level.screen_shake = False
 
-                screen.blit(level.get_screen(),next(offset),level.get_rect(screen_size,player))
+                    screen.blit(level.get_screen(),next(offset),level.get_rect(screen_size,player))
                 pygame.display.flip()
 
 if __name__ == '__main__':

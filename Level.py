@@ -56,8 +56,7 @@ class Level:
 		Return the portion of the level where the player is currently visible
 
 		'''
-		(ox,oy) = self.screen_player_offset
-		(px,py) = player.get_position()
+
 		(dx,dy) = dim
 		rx = 0
 		'''
@@ -66,7 +65,7 @@ class Level:
 		if rx + dx > self.rect.width:
 			rx = self.rect.width - dx
 		'''
-		ry = py - oy
+
 		'''
 		if ry < 0:
 			ry = 0
@@ -75,6 +74,7 @@ class Level:
 			'''
 		rx = 0
 		self.default_y += 1
+		self.default_y *= 1.0005
 		ry = self.default_y
 		rect = pygame.Rect(rx,ry,dx,dy)
 		return rect
@@ -89,6 +89,11 @@ class Level:
 			s *= -1
 		while True:
 			yield (0, 0)
+
+	def set_default_y(self):
+		self.default_y = 0
+		rect = pygame.Rect(0, 0, 800, 800)
+		return rect
 
 
 class Floor(pygame.sprite.Sprite):

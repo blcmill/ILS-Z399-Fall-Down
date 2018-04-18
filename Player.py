@@ -21,7 +21,7 @@ class Player(pygame.sprite.Sprite):
 
 		self.rotation = 0
 
-		self.jump_force = 40
+		self.jump_force = 20
 		self.gravity = gravity
 		self.friction = friction
 
@@ -46,6 +46,8 @@ class Player(pygame.sprite.Sprite):
 		(self.rect.x,self.rect.y) = self.starting_position
 		(self.dx,self.dy) = (0,0)
 		level.screen_shake = True
+		level.set_default_y()
+		level.set_default_y()
 
 	def update(self,level,enemies,floors):
 		self.rect.x += self.dx
@@ -98,5 +100,12 @@ class Player(pygame.sprite.Sprite):
 					elif pt >= fb - margin and ((pl >= fl and pl <= fr) or (pr >= fl and pr <= fr)):
 						self.rect.top = fb + 1
 						self.dy = 0
-		if self.rect.bottom <= level.rect.top:
+		new_rect = level.get_rect((800,800), self)
+		if not (new_rect.colliderect(self.rect)):
+			print("Out of bounds")
+		if self.rect.bottom <= new_rect.y:
+			level.set_default_y()
+			self.die(level)
+		elif self.rect.top >= new_rect.y + 800:
+			level.set_default_y()
 			self.die(level)
